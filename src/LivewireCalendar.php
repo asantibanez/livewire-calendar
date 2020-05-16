@@ -65,7 +65,7 @@ class LivewireCalendar extends Component
 
         $this->eventView = $eventView ?? 'livewire-calendar::event';
 
-        $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::dayOfWeek';
+        $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::day-of-week';
     }
 
     /**
