@@ -1,11 +1,11 @@
-# Very short description of the package
+# WIP: Livewire Calendar
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/asantibanez/livewire-calendar.svg?style=flat-square)](https://packagist.org/packages/asantibanez/livewire-calendar)
 [![Build Status](https://img.shields.io/travis/asantibanez/livewire-calendar/master.svg?style=flat-square)](https://travis-ci.org/asantibanez/livewire-calendar)
 [![Quality Score](https://img.shields.io/scrutinizer/g/asantibanez/livewire-calendar.svg?style=flat-square)](https://scrutinizer-ci.com/g/asantibanez/livewire-calendar)
 [![Total Downloads](https://img.shields.io/packagist/dt/asantibanez/livewire-calendar.svg?style=flat-square)](https://packagist.org/packages/asantibanez/livewire-calendar)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Laravel Livewire calendar component 😎
 
 ## Installation
 
