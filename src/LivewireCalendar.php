@@ -5,6 +5,7 @@ namespace Asantibanez\LivewireCalendar;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -15,6 +16,8 @@ use Livewire\Component;
  * @property Carbon $endsAt
  * @property Carbon $weekStartsAt
  * @property Carbon $weekEndsAt
+ * @property string $dayView
+ * @property string $eventView
  */
 class LivewireCalendar extends Component
 {
@@ -26,12 +29,23 @@ class LivewireCalendar extends Component
 
     public $weekEndsAt;
 
+    public $dayView;
+
+    public $eventView;
+
+    public $dayOfWeekView;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
     ];
 
-    public function mount($initialYear = null, $initialMonth = null, $weekStartsAt = null, $weekEndsAt = null)
+    public function mount($initialYear = null,
+                          $initialMonth = null,
+                          $weekStartsAt = null,
+                          $dayView = null,
+                          $eventView = null,
+                          $dayOfWeekView = null)
     {
         $initialYear = $initialYear ?? Carbon::today()->year;
         $initialMonth = $initialMonth ?? Carbon::today()->month;
@@ -40,12 +54,18 @@ class LivewireCalendar extends Component
 
         $this->endsAt = $this->startsAt->clone()->endOfMonth()->startOfDay();
 
-        $this->weekStartsAt = $weekStartsAt ?? Carbon::MONDAY;
+        $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
 
         $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
             ? Carbon::SATURDAY
             : collect([0,1,2,3,4,5,6])->get($this->weekStartsAt + 6 - 7)
         ;
+
+        $this->dayView = $dayView ?? 'livewire-calendar::day';
+
+        $this->eventView = $eventView ?? 'livewire-calendar::event';
+
+        $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::dayOfWeek';
     }
 
     /**
@@ -81,15 +101,39 @@ class LivewireCalendar extends Component
         return $monthGrid;
     }
 
+    public function events() : Collection
+    {
+        return collect();
+    }
+
+    public function getEventsForDay($day, Collection $events) : Collection
+    {
+        return $events
+            ->filter(function ($event) use ($day) {
+                return $event['date']->isSameDay($day);
+            });
+    }
+
+    public function onDayClick($year, $month, $day)
+    {
+        //
+    }
+
     /**
      * @return Factory|View
      * @throws Exception
      */
     public function render()
     {
+        $events = $this->events();
+
         return view('livewire-calendar::calendar')
             ->with([
                 'monthGrid' => $this->monthGrid(),
+                'events' => $events,
+                'getEventsForDay' => function ($day) use ($events) {
+                    return $this->getEventsForDay($day, $events);
+                }
             ]);
     }
 }
