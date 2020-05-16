@@ -38,6 +38,7 @@ class LivewireCalendar extends Component
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
+        'events' => 'collection',
     ];
 
     public function mount($initialYear = null,
@@ -110,7 +111,7 @@ class LivewireCalendar extends Component
     {
         return $events
             ->filter(function ($event) use ($day) {
-                return $event['date']->isSameDay($day);
+                return Carbon::parse($event['date'])->isSameDay($day);
             });
     }
 
