@@ -119,6 +119,11 @@ class LivewireCalendar extends Component
         //
     }
 
+    public function onEventDropped($eventId, $year, $month, $day)
+    {
+        //
+    }
+
     /**
      * @return Factory|View
      * @throws Exception
