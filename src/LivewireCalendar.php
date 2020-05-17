@@ -39,6 +39,10 @@ class LivewireCalendar extends Component
 
     public $dragAndDropClasses;
 
+    public $beforeCalendarView;
+
+    public $afterCalendarView;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
@@ -50,29 +54,30 @@ class LivewireCalendar extends Component
                           $dayView = null,
                           $eventView = null,
                           $dayOfWeekView = null,
-                          $dragAndDropClasses = null)
+                          $dragAndDropClasses = null,
+                          $beforeCalendarView = null,
+                          $afterCalendarView = null)
     {
         $initialYear = $initialYear ?? Carbon::today()->year;
         $initialMonth = $initialMonth ?? Carbon::today()->month;
 
         $this->startsAt = Carbon::createFromDate($initialYear, $initialMonth, 1)->startOfDay();
-
         $this->endsAt = $this->startsAt->clone()->endOfMonth()->startOfDay();
 
         $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
-
         $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
             ? Carbon::SATURDAY
             : collect([0,1,2,3,4,5,6])->get($this->weekStartsAt + 6 - 7)
         ;
 
         $this->dayView = $dayView ?? 'livewire-calendar::day';
-
         $this->eventView = $eventView ?? 'livewire-calendar::event';
-
         $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::day-of-week';
 
         $this->dragAndDropClasses = $dragAndDropClasses ?? 'border border-blue-400 border-4';
+
+        $this->beforeCalendarView = $beforeCalendarView ?? null;
+        $this->afterCalendarView = $afterCalendarView ?? null;
     }
 
     /**
