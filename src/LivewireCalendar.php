@@ -148,6 +148,11 @@ class LivewireCalendar extends Component
         //
     }
 
+    public function onEventClick($eventId)
+    {
+        //
+    }
+
     public function onEventDropped($eventId, $year, $month, $day)
     {
         //

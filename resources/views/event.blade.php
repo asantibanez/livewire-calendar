@@ -1,4 +1,5 @@
-<div class="bg-white rounded-lg border py-2 px-3 shadow-md">
+<div class="bg-white rounded-lg border py-2 px-3 shadow-md cursor-pointer"
+    wire:click.stop="onEventClick({{ $event['id']  }})">
     <p class="text-sm font-medium">
         {{ $event['title'] }}
     </p>
