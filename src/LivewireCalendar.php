@@ -14,6 +14,8 @@ use Livewire\Component;
  * @package Asantibanez\LivewireCalendar
  * @property Carbon $startsAt
  * @property Carbon $endsAt
+ * @property Carbon $gridStartsAt
+ * @property Carbon $gridEndsAt
  * @property Carbon $weekStartsAt
  * @property Carbon $weekEndsAt
  * @property string $calendarView
@@ -26,6 +28,9 @@ class LivewireCalendar extends Component
 {
     public $startsAt;
     public $endsAt;
+
+    public $gridStartsAt;
+    public $gridEndsAt;
 
     public $weekStartsAt;
     public $weekEndsAt;
@@ -43,6 +48,8 @@ class LivewireCalendar extends Component
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
+        'gridStartsAt' => 'date',
+        'gridEndsAt' => 'date',
     ];
 
     public function mount($initialYear = null,
@@ -56,17 +63,19 @@ class LivewireCalendar extends Component
                           $beforeCalendarView = null,
                           $afterCalendarView = null)
     {
+        $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
+        $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
+            ? Carbon::SATURDAY
+            : collect([0,1,2,3,4,5,6])->get($this->weekStartsAt + 6 - 7)
+        ;
+
         $initialYear = $initialYear ?? Carbon::today()->year;
         $initialMonth = $initialMonth ?? Carbon::today()->month;
 
         $this->startsAt = Carbon::createFromDate($initialYear, $initialMonth, 1)->startOfDay();
         $this->endsAt = $this->startsAt->clone()->endOfMonth()->startOfDay();
 
-        $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
-        $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
-            ? Carbon::SATURDAY
-            : collect([0,1,2,3,4,5,6])->get($this->weekStartsAt + 6 - 7)
-        ;
+        $this->calculateGridStartsEnds();
 
         $this->calendarView = $calendarView ?? 'livewire-calendar::calendar';
         $this->dayView = $dayView ?? 'livewire-calendar::day';
@@ -83,18 +92,30 @@ class LivewireCalendar extends Component
     {
         $this->startsAt->subMonthNoOverflow();
         $this->endsAt->subMonthNoOverflow();
+
+        $this->calculateGridStartsEnds();
     }
 
     public function goToNextMonth()
     {
         $this->startsAt->addMonthNoOverflow();
         $this->endsAt->addMonthNoOverflow();
+
+        $this->calculateGridStartsEnds();
     }
 
     public function goToCurrentMonth()
     {
         $this->startsAt = Carbon::today()->startOfMonth()->startOfDay();
         $this->endsAt = $this->startsAt->clone()->endOfMonth()->startOfDay();
+
+        $this->calculateGridStartsEnds();
+    }
+
+    public function calculateGridStartsEnds()
+    {
+        $this->gridStartsAt = $this->startsAt->clone()->startOfWeek($this->weekStartsAt);
+        $this->gridEndsAt = $this->endsAt->clone()->endOfWeek($this->weekEndsAt);
     }
 
     /**
@@ -102,12 +123,10 @@ class LivewireCalendar extends Component
      */
     public function monthGrid()
     {
-        $firstDayOfGrid = $this->startsAt->clone()->startOfWeek($this->weekStartsAt);
-
-        $lastDayOfGrid = $this->endsAt->clone()->endOfWeek($this->weekEndsAt);
+        $firstDayOfGrid = $this->gridStartsAt;
+        $lastDayOfGrid = $this->gridEndsAt;
 
         $numbersOfWeeks = $lastDayOfGrid->diffInWeeks($firstDayOfGrid) + 1;
-
         $days = $lastDayOfGrid->diffInDays($firstDayOfGrid) + 1;
 
         if ($days % 7 != 0) {
