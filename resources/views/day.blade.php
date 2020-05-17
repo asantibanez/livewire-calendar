@@ -4,8 +4,8 @@
     ondragleave="onLivewireCalendarEventDragLeave(event, @this, '{{ $day }}');"
     ondragover="onLivewireCalendarEventDragOver(event);"
     ondrop="onLivewireCalendarEventDrop(event, @this, '{{ $day }}', {{ $day->year }}, {{ $day->month }}, {{ $day->day }});"
-    class="flex-1 h-48 border border-gray-200 -mt-px -ml-px"
-    style="min-width: 12rem;">
+    class="flex-1 h-40 lg:h-48 border border-gray-200 -mt-px -ml-px"
+    style="min-width: 10rem;">
 
     {{-- Wrapper for Drag and Drop --}}
     <div
