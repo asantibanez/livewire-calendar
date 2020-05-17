@@ -80,6 +80,24 @@ class LivewireCalendar extends Component
         $this->afterCalendarView = $afterCalendarView ?? null;
     }
 
+    public function goToPreviousMonth()
+    {
+        $this->startsAt->subMonthNoOverflow();
+        $this->endsAt->subMonthNoOverflow();
+    }
+
+    public function goToNextMonth()
+    {
+        $this->startsAt->addMonthNoOverflow();
+        $this->endsAt->addMonthNoOverflow();
+    }
+
+    public function goToCurrentMonth()
+    {
+        $this->startsAt = Carbon::today()->startOfMonth()->startOfDay();
+        $this->endsAt = $this->startsAt->clone()->endOfMonth()->startOfDay();
+    }
+
     /**
      * @throws Exception
      */
