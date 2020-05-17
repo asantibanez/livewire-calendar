@@ -32,7 +32,7 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                     event.preventDefault();
 
                     let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className + ' border border-blue-300 border-4 ';
+                    element.className = element.className + ` ${component.data.dragAndDropClasses} `;
                 }
 
                 function onLivewireCalendarEventDragLeave(event, component, dateString) {
@@ -40,7 +40,7 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                     event.preventDefault();
 
                     let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className.replace('border border-blue-300 border-4', '');
+                    element.className = element.className.replace(component.data.dragAndDropClasses, '');
                 }
 
                 function onLivewireCalendarEventDragOver(event) {
@@ -53,7 +53,7 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                     event.preventDefault();
 
                     let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className.replace('border border-blue-300 border-4', '');
+                    element.className = element.className.replace(component.data.dragAndDropClasses, '');
 
                     const eventId = event.dataTransfer.getData('id');
                     component.call('onEventDropped', eventId, year, month, day);

@@ -19,6 +19,7 @@ use Livewire\Component;
  * @property string $dayView
  * @property string $eventView
  * @property string $dayOfWeek
+ * @property string $dragAndDropClasses
  */
 class LivewireCalendar extends Component
 {
@@ -36,6 +37,8 @@ class LivewireCalendar extends Component
 
     public $dayOfWeekView;
 
+    public $dragAndDropClasses;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
@@ -46,7 +49,8 @@ class LivewireCalendar extends Component
                           $weekStartsAt = null,
                           $dayView = null,
                           $eventView = null,
-                          $dayOfWeekView = null)
+                          $dayOfWeekView = null,
+                          $dragAndDropClasses = null)
     {
         $initialYear = $initialYear ?? Carbon::today()->year;
         $initialMonth = $initialMonth ?? Carbon::today()->month;
@@ -67,6 +71,8 @@ class LivewireCalendar extends Component
         $this->eventView = $eventView ?? 'livewire-calendar::event';
 
         $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::day-of-week';
+
+        $this->dragAndDropClasses = $dragAndDropClasses ?? 'border border-blue-400 border-4';
     }
 
     /**
@@ -135,6 +141,7 @@ class LivewireCalendar extends Component
 
         return view('livewire-calendar::calendar')
             ->with([
+                'componentId' => $this->id,
                 'monthGrid' => $this->monthGrid(),
                 'events' => $events,
                 'getEventsForDay' => function ($day) use ($events) {
