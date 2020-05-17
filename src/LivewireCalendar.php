@@ -18,6 +18,7 @@ use Livewire\Component;
  * @property Carbon $weekEndsAt
  * @property string $dayView
  * @property string $eventView
+ * @property string $dayOfWeek
  */
 class LivewireCalendar extends Component
 {
@@ -38,7 +39,6 @@ class LivewireCalendar extends Component
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
-        'events' => 'collection',
     ];
 
     public function mount($initialYear = null,
