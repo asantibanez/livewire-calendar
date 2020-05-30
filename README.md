@@ -182,6 +182,9 @@ This view will be injected the `day` property which is a Carbon instance of the 
 
 (This options should be used using blade views based on the component default views)
 
+To use these options, it is recommended to publish the base blade views used by the component and extend their 
+behavior and styling to your liking. To do this, run `php artisan vendor:publish` and export the `livewire-calendar` tag.
+
 - `calendar-view` which can be any `blade.php` view that renders the whole component. It's advised to override this
 view with an altered copy of the base `calendar-view` eg adding a view next to the component.
 
