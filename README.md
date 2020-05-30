@@ -139,9 +139,91 @@ You must include them after `@livewireScripts`
 @livewireCalendarScripts
 ``` 
 
+The component has 3 public methods that can help navigate forward and backward through months: 
+- `goToPreviousMonth`
+- `goToNextMonth` 
+- `goToCurrentMonth`
+
+You can use these methods on extra views using `before-calendar-view` or `after-calendar-view` explained below.  
+
 ### Advanced usage
 
-// Coming soon 😉
+### Ui customization
+
+You can customize the behavior of the component with the following properties when rendering on a view:
+
+- `week-starts-at` which can be a number from 0 to 6 according to Carbon days of week to indicate
+with which day of week the calendar should render first. 
+                          
+- `event-view` which can be any `blade.php` view that will be used to render the event card. 
+This view will be injected with a `$event` variable holding its data. 
+
+- `before-calendar-view` and `after-calendar-view` can be any `blade.php` views that can be rendered before or after
+the calendar itself. These can be used to add extra features to your component using Livewire.
+
+- `drag-and-drop-classes` can be any css class used to render the hover effect when dragging an event over each day
+in the calendar. By default, this value is `border border-blue-400 border-4` 
+
+- `day-of-week-view` which can be any `blade.php` view that will be used to render the header of each calendar day.
+This view will be injected the `day` property which is a Carbon instance of the day of the week.
+
+```blade
+<livewire:appointments-grid
+    week-starts-at="0, 1, 2, 3, 4, 5 or 6. 0 stands for Sunday"
+    event-view="path/to/view/starting/from/views/folder"
+    day-of-week-view="path/to/view/starting/from/views/folder"
+    before-calendar-view="path/to/view/starting/from/views/folder"
+    after-calendar-view="path/to/view/starting/from/views/folder"
+    drag-and-drop-classes="css classes"
+/>
+```
+
+### Advanced ui customization
+
+(This options should be used using blade views based on the component default views)
+
+- `calendar-view` which can be any `blade.php` view that renders the whole component. It's advised to override this
+view with an altered copy of the base `calendar-view` eg adding a view next to the component.
+
+- `day-view` which can be any `blade.php` view that will be used to render each day of the month. This view will be 
+injected with the following properties: `componentId` (id of the Livewire component)
+, `day` (day of the month as a Carbon instance)
+, `dayInMonth` (if the day is part of the month or not)
+, `isToday` (if the day is today's date)
+, `events` (events collection that correspond to this day)
+
+Example
+
+```blade
+<livewire:appointments-grid
+    calendar-view="path/to/view/starting/from/views/folder"
+    day-view="path/to/view/starting/from/views/folder"
+/>
+```
+
+### Interaction customization
+
+You can override the following methods to add interactivity to your component
+
+```php
+public function onDayClick($year, $month, $day)
+{
+    // This event is triggered when a day is clicked
+    // You will be given the $year, $month and $day for that day
+}
+
+public function onEventClick($eventId)
+{
+    // This event is triggered when an event card is clicked
+    // You will be given the event id that was clicked 
+}
+
+public function onEventDropped($eventId, $year, $month, $day)
+{
+    // This event will fire when an event is dragged and dropped into another calendar day
+    // You will get the event id, year, month and day where it was dragged to
+}
+```
 
 ### Testing
 
