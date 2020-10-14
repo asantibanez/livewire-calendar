@@ -16,13 +16,17 @@ use Livewire\Component;
  * @property Carbon $endsAt
  * @property Carbon $gridStartsAt
  * @property Carbon $gridEndsAt
- * @property Carbon $weekStartsAt
- * @property Carbon $weekEndsAt
+ * @property int $weekStartsAt
+ * @property int $weekEndsAt
  * @property string $calendarView
  * @property string $dayView
  * @property string $eventView
- * @property string $dayOfWeek
+ * @property string $dayOfWeekView
+ * @property string $beforeCalendarWeekView
+ * @property string $afterCalendarWeekView
  * @property string $dragAndDropClasses
+ * @property int $pollMillis
+ * @property string $pollAction
  */
 class LivewireCalendar extends Component
 {
@@ -45,6 +49,9 @@ class LivewireCalendar extends Component
     public $beforeCalendarView;
     public $afterCalendarView;
 
+    public $pollMillis;
+    public $pollAction;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
@@ -61,7 +68,10 @@ class LivewireCalendar extends Component
                           $dayOfWeekView = null,
                           $dragAndDropClasses = null,
                           $beforeCalendarView = null,
-                          $afterCalendarView = null)
+                          $afterCalendarView = null,
+                          $pollMillis = null,
+                          $pollAction = null,
+                          $extras = [])
     {
         $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
         $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
@@ -77,15 +87,40 @@ class LivewireCalendar extends Component
 
         $this->calculateGridStartsEnds();
 
+        $this->setupViews($calendarView, $dayView, $eventView, $dayOfWeekView, $beforeCalendarView, $afterCalendarView);
+
+        $this->dragAndDropClasses = $dragAndDropClasses ?? 'border border-blue-400 border-4';
+
+        $this->setupPoll($pollMillis, $pollAction);
+
+        $this->afterMount($extras);
+    }
+
+    public function afterMount($extras = [])
+    {
+        //
+    }
+
+    public function setupViews($calendarView = null,
+                               $dayView = null,
+                               $eventView = null,
+                               $dayOfWeekView = null,
+                               $beforeCalendarView = null,
+                               $afterCalendarView = null)
+    {
         $this->calendarView = $calendarView ?? 'livewire-calendar::calendar';
         $this->dayView = $dayView ?? 'livewire-calendar::day';
         $this->eventView = $eventView ?? 'livewire-calendar::event';
         $this->dayOfWeekView = $dayOfWeekView ?? 'livewire-calendar::day-of-week';
 
-        $this->dragAndDropClasses = $dragAndDropClasses ?? 'border border-blue-400 border-4';
-
         $this->beforeCalendarView = $beforeCalendarView ?? null;
         $this->afterCalendarView = $afterCalendarView ?? null;
+    }
+
+    public function setupPoll($pollMillis, $pollAction)
+    {
+        $this->pollMillis = $pollMillis;
+        $this->pollAction = $pollAction;
     }
 
     public function goToPreviousMonth()

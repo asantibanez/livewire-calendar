@@ -1,9 +1,9 @@
 
 <div
-    ondragenter="onLivewireCalendarEventDragEnter(event, @this, '{{ $day }}');"
-    ondragleave="onLivewireCalendarEventDragLeave(event, @this, '{{ $day }}');"
+    ondragenter="onLivewireCalendarEventDragEnter(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');"
+    ondragleave="onLivewireCalendarEventDragLeave(event, '{{ $componentId }}', '{{ $day }}', '{{ $dragAndDropClasses }}');"
     ondragover="onLivewireCalendarEventDragOver(event);"
-    ondrop="onLivewireCalendarEventDrop(event, @this, '{{ $day }}', {{ $day->year }}, {{ $day->month }}, {{ $day->day }});"
+    ondrop="onLivewireCalendarEventDrop(event, '{{ $componentId }}', '{{ $day }}', {{ $day->year }}, {{ $day->month }}, {{ $day->day }}, '{{ $dragAndDropClasses }}');"
     class="flex-1 h-40 lg:h-48 border border-gray-200 -mt-px -ml-px"
     style="min-width: 10rem;">
 

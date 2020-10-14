@@ -33,20 +33,20 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                     event.dataTransfer.setData('id', eventId);
                 }
 
-                function onLivewireCalendarEventDragEnter(event, component, dateString) {
+                function onLivewireCalendarEventDragEnter(event, componentId, dateString, dragAndDropClasses) {
                     event.stopPropagation();
                     event.preventDefault();
 
-                    let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className + ` ${component.data.dragAndDropClasses} `;
+                    let element = document.getElementById(`${componentId}-${dateString}`);
+                    element.className = element.className + ` ${dragAndDropClasses} `;
                 }
 
-                function onLivewireCalendarEventDragLeave(event, component, dateString) {
+                function onLivewireCalendarEventDragLeave(event, componentId, dateString, dragAndDropClasses) {
                     event.stopPropagation();
                     event.preventDefault();
 
-                    let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className.replace(component.data.dragAndDropClasses, '');
+                    let element = document.getElementById(`${componentId}-${dateString}`);
+                    element.className = element.className.replace(dragAndDropClasses, '');
                 }
 
                 function onLivewireCalendarEventDragOver(event) {
@@ -54,15 +54,16 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                     event.preventDefault();
                 }
 
-                function onLivewireCalendarEventDrop(event, component, dateString, year, month, day) {
+                function onLivewireCalendarEventDrop(event, componentId, dateString, year, month, day, dragAndDropClasses) {
                     event.stopPropagation();
                     event.preventDefault();
 
-                    let element = document.getElementById(`${component.id}-${dateString}`);
-                    element.className = element.className.replace(component.data.dragAndDropClasses, '');
+                    let element = document.getElementById(`${componentId}-${dateString}`);
+                    element.className = element.className.replace(dragAndDropClasses, '');
 
                     const eventId = event.dataTransfer.getData('id');
-                    component.call('onEventDropped', eventId, year, month, day);
+
+                    window.Livewire.find(componentId).call('onEventDropped', eventId, year, month, day);
                 }
             </script>
 HTML;
