@@ -27,6 +27,9 @@ use Livewire\Component;
  * @property string $dragAndDropClasses
  * @property int $pollMillis
  * @property string $pollAction
+ * @property boolean $dragAndDropEnabled
+ * @property boolean $dayClickEnabled
+ * @property boolean $eventClickEnabled
  */
 class LivewireCalendar extends Component
 {
@@ -52,6 +55,10 @@ class LivewireCalendar extends Component
     public $pollMillis;
     public $pollAction;
 
+    public $dragAndDropEnabled;
+    public $dayClickEnabled;
+    public $eventClickEnabled;
+
     protected $casts = [
         'startsAt' => 'date',
         'endsAt' => 'date',
@@ -71,6 +78,9 @@ class LivewireCalendar extends Component
                           $afterCalendarView = null,
                           $pollMillis = null,
                           $pollAction = null,
+                          $dragAndDropEnabled = false,
+                          $dayClickEnabled = false,
+                          $eventClickEnabled = false,
                           $extras = [])
     {
         $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
@@ -89,9 +99,13 @@ class LivewireCalendar extends Component
 
         $this->setupViews($calendarView, $dayView, $eventView, $dayOfWeekView, $beforeCalendarView, $afterCalendarView);
 
+        $this->setupPoll($pollMillis, $pollAction);
+
+        $this->dragAndDropEnabled = $dragAndDropEnabled;
         $this->dragAndDropClasses = $dragAndDropClasses ?? 'border border-blue-400 border-4';
 
-        $this->setupPoll($pollMillis, $pollAction);
+        $this->dayClickEnabled = $dayClickEnabled;
+        $this->eventClickEnabled = $eventClickEnabled;
 
         $this->afterMount($extras);
     }
