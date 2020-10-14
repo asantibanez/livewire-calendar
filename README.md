@@ -228,6 +228,23 @@ public function onEventDropped($eventId, $year, $month, $day)
 }
 ```
 
+### Interaction customization
+
+You can also add automatic polling if needed using `pollMillis` parameters. You can combo with `pollAction` in
+order to call a specific action in your component at the desired polling interval.
+
+### Disabling interactions
+
+By default click and drag/drop events are enabled. To disable them you can use the following parameters when
+rendering the component
+```blade
+<livewire:appointments-grid
+    :day-click-enabled="false"
+    :event-click-enabled="false"
+    :drag-and-drop-enabled="false"
+/>
+```
+
 ### Testing
 
 ``` bash
