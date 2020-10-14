@@ -78,9 +78,9 @@ class LivewireCalendar extends Component
                           $afterCalendarView = null,
                           $pollMillis = null,
                           $pollAction = null,
-                          $dragAndDropEnabled = false,
-                          $dayClickEnabled = false,
-                          $eventClickEnabled = false,
+                          $dragAndDropEnabled = true,
+                          $dayClickEnabled = true,
+                          $eventClickEnabled = true,
                           $extras = [])
     {
         $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
