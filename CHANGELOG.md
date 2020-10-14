@@ -1,7 +1,15 @@
 # Changelog
 
-All notable changes to `livewire-calendar` will be documented in this file
+## 2.0.0 - 2020-10-13
 
-## 1.0.0 - 201X-XX-XX
+- Added support for Laravel 8
+- Added support for Livewire v2
+- Added on/off flag for Day click event
+- Added on/off flag for Event click event
+- Added on/off flag for Drag and Drop event
+- Added ability to automatically poll component with `pollMillis` and `pollAction` parameters
+- Added tests 
 
-- initial release
+## 1.0.0 - 2020-05-30
+
+- Initial release
