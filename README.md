@@ -228,7 +228,7 @@ public function onEventDropped($eventId, $year, $month, $day)
 }
 ```
 
-### Interaction customization
+### Automatic polling
 
 You can also add automatic polling if needed using `pollMillis` parameters. You can combo with `pollAction` in
 order to call a specific action in your component at the desired polling interval.
