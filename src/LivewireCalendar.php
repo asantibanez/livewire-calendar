@@ -34,7 +34,7 @@ use Livewire\Component;
  */
 class LivewireCalendar extends Component
 {
-    public $eventTitle="Events";
+    public $eventTitle="Event";
 
     public $startsAt;
     public $endsAt;
