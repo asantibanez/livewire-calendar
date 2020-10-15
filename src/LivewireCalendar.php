@@ -21,6 +21,7 @@ use Livewire\Component;
  * @property string $calendarView
  * @property string $dayView
  * @property string $eventView
+ * @property string $eventTitle
  * @property string $dayOfWeekView
  * @property string $beforeCalendarWeekView
  * @property string $afterCalendarWeekView
@@ -33,6 +34,8 @@ use Livewire\Component;
  */
 class LivewireCalendar extends Component
 {
+    public $eventTitle="Events";
+
     public $startsAt;
     public $endsAt;
 
