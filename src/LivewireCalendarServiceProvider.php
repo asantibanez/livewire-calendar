@@ -19,13 +19,7 @@ class LivewireCalendarServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => $this->app->resourcePath('views/vendor/livewire-calendar'),
             ], 'livewire-calendar');
         }
-    }
 
-    /**
-     * Register the application services.
-     */
-    public function register()
-    {
         Blade::directive('livewireCalendarScripts', function () {
             return <<<'HTML'
             <script>
