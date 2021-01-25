@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 - 2021-01-25
+
+- Added support for PHP 8
+
 ## 2.0.0 - 2020-10-13
 
 - Added support for Laravel 8
