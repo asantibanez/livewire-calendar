@@ -25,7 +25,7 @@
                 </p>
                 <p class="text-xs text-gray-600 ml-4">
                     @if($events->isNotEmpty())
-                        {{ $events->count() }} {{ Str::plural('event', $events->count()) }}
+                        {{ $events->count() }} {{ __(Str::plural('event', $events->count())) }}
                     @endif
                 </p>
             </div>
