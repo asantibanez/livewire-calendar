@@ -2,7 +2,7 @@
      style="min-width: 10rem;">
 
     <p class="text-sm">
-        {{ $day->formatLocalized('l') }}
+        {{ ucfirst($day->isoFormat('dddd')) }}
     </p>
 
 </div>
