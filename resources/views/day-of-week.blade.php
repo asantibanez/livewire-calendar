@@ -2,7 +2,7 @@
      style="min-width: 10rem;">
 
     <p class="text-sm">
-        {{ $day->format('l') }}
+        {{ $day->formatLocalized('l') }}
     </p>
 
 </div>
