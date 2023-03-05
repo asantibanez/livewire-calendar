@@ -139,16 +139,16 @@ class LivewireCalendar extends Component
 
     public function goToPreviousMonth()
     {
-        $this->startsAt->subMonthNoOverflow();
-        $this->endsAt->subMonthNoOverflow();
+        $this->startsAt->subMonthNoOverflow()->startOfMonth()->startOfDay();
+        $this->endsAt->subMonthNoOverflow()->endOfMonth()->startOfDay();
 
         $this->calculateGridStartsEnds();
     }
 
     public function goToNextMonth()
     {
-        $this->startsAt->addMonthNoOverflow();
-        $this->endsAt->addMonthNoOverflow();
+        $this->startsAt->addMonthNoOverflow()->startOfMonth()->startOfDay();
+        $this->endsAt->addMonthNoOverflow()->endOfMonth()->startOfDay();
 
         $this->calculateGridStartsEnds();
     }
