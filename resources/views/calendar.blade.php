@@ -15,20 +15,24 @@
 
                 <div class="w-full flex flex-row">
                     @foreach($monthGrid->first() as $day)
-                        @include($dayOfWeekView, ['day' => $day])
+                        @unless($hideWeekends && $day->isWeekend())
+                            @include($dayOfWeekView, ['day' => $day])
+                        @endunless
                     @endforeach
                 </div>
 
                 @foreach($monthGrid as $week)
                     <div class="w-full flex flex-row">
                         @foreach($week as $day)
-                            @include($dayView, [
-                                    'componentId' => $componentId,
-                                    'day' => $day,
-                                    'dayInMonth' => $day->isSameMonth($startsAt),
-                                    'isToday' => $day->isToday(),
-                                    'events' => $getEventsForDay($day, $events),
-                                ])
+                            @unless($hideWeekends && $day->isWeekend())
+                                @include($dayView, [
+                                        'componentId' => $componentId,
+                                        'day' => $day,
+                                        'dayInMonth' => $day->isSameMonth($startsAt),
+                                        'isToday' => $day->isToday(),
+                                        'events' => $getEventsForDay($day, $events),
+                                    ])
+                            @endunless
                         @endforeach
                     </div>
                 @endforeach
