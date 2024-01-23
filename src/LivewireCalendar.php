@@ -198,10 +198,56 @@ class LivewireCalendar extends Component
         return $monthGrid;
     }
 
-    public function events() : Collection
+     public function getEventsForDay($day, Collection $events) : Collection
     {
-        return collect();
+            return $events->filter(function ($event) use ($day) {
+                $eventStartDate = Carbon::parse($event['startDate']);
+                $eventEndDate = Carbon::parse($event['endDate']);
+                $recurrenceType = strtolower($event['recurrence_type']);
+
+                // Check if the event is daily and overlaps with the specified day
+                if ($recurrenceType === 'daily') {
+                    return $eventStartDate->isSameDay($day) || $eventEndDate->isSameDay($day) || ($eventStartDate <= $day && $eventEndDate >= $day);
+                }
+
+                // Check if the event is weekly and has a recurrence on the specified day of the week
+                if ($recurrenceType === 'weekly') {
+                    $recurrenceDayOfWeek = strtolower($event['recurrence_day_of_week']);
+                    return strtolower($day->format('l')) === $recurrenceDayOfWeek &&
+                           ($eventStartDate->isSameDay($day) ||
+                            $eventEndDate->isSameDay($day) ||
+                            ($eventStartDate <= $day && $eventEndDate >= $day));
+                }
+
+                if ($recurrenceType === 'monthly') {
+                    $recurrenceDateOfMonth = (int) $event['recurrence_date_of_month'];
+
+                    // Check if it's the specified day of the month
+                    return $day->day == $recurrenceDateOfMonth &&
+                           ($eventStartDate->isSameDay($day) ||
+                            $eventEndDate->isSameDay($day) ||
+                            ($eventStartDate <= $day && $eventEndDate >= $day));
+                }
+
+                if ($recurrenceType === 'yearly') {
+                    $recurrenceMonthOfYear = strtolower($event['recurrence_month_of_year']);
+                    $recurrenceDateOfYear = (int) $event['recurrence_date_of_year'];
+
+                    // Check if it's the specified month and day of the year
+                    return strtolower($day->format('F')) === $recurrenceMonthOfYear && $day->day == $recurrenceDateOfYear &&
+                           ($eventStartDate->isSameDay($day) ||
+                            $eventEndDate->isSameDay($day) ||
+                            ($eventStartDate <= $day && $eventEndDate >= $day));
+                }
+
+                // Handle other recurrence types or return false if no match
+                return false;
+            })->filter(function ($event) {
+                // Filter out events where end date has passed
+                return Carbon::parse($event['endDate']) > now();
+            });
     }
+
 
     public function getEventsForDay($day, Collection $events) : Collection
     {
