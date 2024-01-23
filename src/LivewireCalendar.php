@@ -198,7 +198,7 @@ class LivewireCalendar extends Component
         return $monthGrid;
     }
 
- public function events() : Collection
+    public function events() : Collection
     {
         return collect();
     }
