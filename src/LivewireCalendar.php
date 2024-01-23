@@ -198,6 +198,11 @@ class LivewireCalendar extends Component
         return $monthGrid;
     }
 
+ public function events() : Collection
+    {
+        return collect();
+    }
+
      public function getEventsForDay($day, Collection $events) : Collection
     {
             return $events->filter(function ($event) use ($day) {
@@ -245,15 +250,6 @@ class LivewireCalendar extends Component
             })->filter(function ($event) {
                 // Filter out events where end date has passed
                 return Carbon::parse($event['endDate']) > now();
-            });
-    }
-
-
-    public function getEventsForDay($day, Collection $events) : Collection
-    {
-        return $events
-            ->filter(function ($event) use ($day) {
-                return Carbon::parse($event['date'])->isSameDay($day);
             });
     }
 
