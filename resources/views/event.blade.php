@@ -10,4 +10,10 @@
     <p class="mt-2 text-xs">
         {{ $event['description'] ?? 'No description' }}
     </p>
+    <p class="mt-2 text-xs">
+        {{ $event['recurrenceTime'] ?? 'No description' }}
+    </p>
+    {{-- <p class="mt-2 text-xs">
+        {{ $event['recurrence_day_of_week'] ?? 'No description' }}
+    </p> --}}
 </div>
