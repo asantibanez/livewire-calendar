@@ -1,17 +1,17 @@
 {
-    "name": "asantibanez/livewire-calendar",
+    "name": "caiquebispo/livewire-calendar",
     "description": "Laravel Livewire calendar component",
     "keywords": [
-        "asantibanez",
+        "caiquebispo",
         "livewire-calendar"
     ],
-    "homepage": "https://github.com/asantibanez/livewire-calendar",
+    "homepage": "https://github.com/caiquebispo/livewire-calendar",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Andrés Santibáñez",
-            "email": "santibanez.andres@gmail.com",
+            "name": "Caique Bispo",
+            "email": "caiquebispo0023@gmail.com",
             "role": "Developer"
         }
     ],
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Asantibanez\\LivewireCalendar\\": "src"
+            "caiquebispo\\LivewireCalendar\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Asantibanez\\LivewireCalendar\\Tests\\": "tests"
+            "caiquebispo\\LivewireCalendar\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Asantibanez\\LivewireCalendar\\LivewireCalendarServiceProvider"
+                "caiquebispo\\LivewireCalendar\\LivewireCalendarServiceProvider"
             ],
             "aliases": {
-                "LivewireCalendar": "Asantibanez\\LivewireCalendar\\LivewireCalendarFacade"
+                "LivewireCalendar": "caiquebispo\\LivewireCalendar\\LivewireCalendarFacade"
             }
         }
     }
