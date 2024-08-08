@@ -1,8 +1,8 @@
 <?php
 
-namespace Asantibanez\LivewireCalendar\Tests;
+namespace CaiqueBispo\LivewireCalendar\Tests;
 
-use Asantibanez\LivewireCalendar\LivewireCalendarServiceProvider;
+use CaiqueBispo\LivewireCalendar\LivewireCalendarServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as BaseCase;
 
