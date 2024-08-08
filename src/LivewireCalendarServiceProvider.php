@@ -1,6 +1,6 @@
 <?php
 
-namespace Asantibanez\LivewireCalendar;
+namespace CaiqueBispo\LivewireCalendar;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -12,11 +12,11 @@ class LivewireCalendarServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'livewire-calendar');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'livewire-calendar');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../resources/views' => $this->app->resourcePath('views/vendor/livewire-calendar'),
+                __DIR__ . '/../resources/views' => $this->app->resourcePath('views/vendor/livewire-calendar'),
             ], 'livewire-calendar');
         }
 

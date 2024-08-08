@@ -1,6 +1,6 @@
 <?php
 
-namespace Asantibanez\LivewireCalendar;
+namespace CaiqueBispo\LivewireCalendar;
 
 use Carbon\Carbon;
 use Exception;
@@ -11,7 +11,7 @@ use Livewire\Component;
 
 /**
  * Class LivewireCalendar
- * @package Asantibanez\LivewireCalendar
+ * @package CaiqueBispo\LivewireCalendar
  * @property Carbon $startsAt
  * @property Carbon $endsAt
  * @property Carbon $gridStartsAt
@@ -66,28 +66,28 @@ class LivewireCalendar extends Component
         'gridEndsAt' => 'date',
     ];
 
-    public function mount($initialYear = null,
-                          $initialMonth = null,
-                          $weekStartsAt = null,
-                          $calendarView = null,
-                          $dayView = null,
-                          $eventView = null,
-                          $dayOfWeekView = null,
-                          $dragAndDropClasses = null,
-                          $beforeCalendarView = null,
-                          $afterCalendarView = null,
-                          $pollMillis = null,
-                          $pollAction = null,
-                          $dragAndDropEnabled = true,
-                          $dayClickEnabled = true,
-                          $eventClickEnabled = true,
-                          $extras = [])
-    {
+    public function mount(
+        $initialYear = null,
+        $initialMonth = null,
+        $weekStartsAt = null,
+        $calendarView = null,
+        $dayView = null,
+        $eventView = null,
+        $dayOfWeekView = null,
+        $dragAndDropClasses = null,
+        $beforeCalendarView = null,
+        $afterCalendarView = null,
+        $pollMillis = null,
+        $pollAction = null,
+        $dragAndDropEnabled = true,
+        $dayClickEnabled = true,
+        $eventClickEnabled = true,
+        $extras = []
+    ) {
         $this->weekStartsAt = $weekStartsAt ?? Carbon::SUNDAY;
         $this->weekEndsAt = $this->weekStartsAt == Carbon::SUNDAY
             ? Carbon::SATURDAY
-            : collect([0,1,2,3,4,5,6])->get($this->weekStartsAt + 6 - 7)
-        ;
+            : collect([0, 1, 2, 3, 4, 5, 6])->get($this->weekStartsAt + 6 - 7);
 
         $initialYear = $initialYear ?? Carbon::today()->year;
         $initialMonth = $initialMonth ?? Carbon::today()->month;
@@ -115,13 +115,14 @@ class LivewireCalendar extends Component
         //
     }
 
-    public function setupViews($calendarView = null,
-                               $dayView = null,
-                               $eventView = null,
-                               $dayOfWeekView = null,
-                               $beforeCalendarView = null,
-                               $afterCalendarView = null)
-    {
+    public function setupViews(
+        $calendarView = null,
+        $dayView = null,
+        $eventView = null,
+        $dayOfWeekView = null,
+        $beforeCalendarView = null,
+        $afterCalendarView = null
+    ) {
         $this->calendarView = $calendarView ?? 'livewire-calendar::calendar';
         $this->dayView = $dayView ?? 'livewire-calendar::day';
         $this->eventView = $eventView ?? 'livewire-calendar::event';
@@ -185,7 +186,7 @@ class LivewireCalendar extends Component
         $monthGrid = collect();
         $currentDay = $firstDayOfGrid->clone();
 
-        while(!$currentDay->greaterThan($lastDayOfGrid)) {
+        while (!$currentDay->greaterThan($lastDayOfGrid)) {
             $monthGrid->push($currentDay->clone());
             $currentDay->addDay();
         }
@@ -198,12 +199,12 @@ class LivewireCalendar extends Component
         return $monthGrid;
     }
 
-    public function events() : Collection
+    public function events(): Collection
     {
         return collect();
     }
 
-    public function getEventsForDay($day, Collection $events) : Collection
+    public function getEventsForDay($day, Collection $events): Collection
     {
         return $events
             ->filter(function ($event) use ($day) {

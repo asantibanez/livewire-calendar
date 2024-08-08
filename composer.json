@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "caiquebispo\\LivewireCalendar\\": "src"
+            "CaiqueBispo\\LivewireCalendar\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "caiquebispo\\LivewireCalendar\\Tests\\": "tests"
+            "CaiqueBispo\\LivewireCalendar\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -44,10 +44,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "caiquebispo\\LivewireCalendar\\LivewireCalendarServiceProvider"
+                "CaiqueBispo\\LivewireCalendar\\LivewireCalendarServiceProvider"
             ],
             "aliases": {
-                "LivewireCalendar": "caiquebispo\\LivewireCalendar\\LivewireCalendarFacade"
+                "LivewireCalendar": "CaiqueBispo\\LivewireCalendar\\LivewireCalendarFacade"
             }
         }
     }
