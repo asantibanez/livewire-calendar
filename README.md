@@ -107,6 +107,25 @@ public function events(): Collection
 }
 ```
 
+Events can be marked as multiday events by giving them an `end` and `multiday` attributes
+
+Example
+```php
+public function events() : Collection
+{
+    return collect([
+        [
+            'id' => 1,
+            'title' => 'Holiday',
+            'description' => 'Off To The Beach!',
+            'date' => Carbon::today(),
+            'end' => Carbon::today()->addDays(4),
+            'mulitday' => true,
+        ],
+    ]);
+}
+```
+
 Now, we can include our component in any view. 
 
 Example
