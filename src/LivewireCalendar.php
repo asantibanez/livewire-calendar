@@ -205,10 +205,15 @@ class LivewireCalendar extends Component
 
     public function getEventsForDay($day, Collection $events) : Collection
     {
-        return $events
-            ->filter(function ($event) use ($day) {
-                return Carbon::parse($event['date'])->isSameDay($day);
-            });
+        return $events->filter(function ($event) use ($day)
+        {
+            if(isset($event['multiday']) && $event['multiday']===true)
+            {
+                return $day->between(Carbon::parse($event['date']), Carbon::parse($event['end']));
+            }
+
+            return Carbon::parse($event['date'])->isSameDay($day);
+        });
     }
 
     public function onDayClick($year, $month, $day)
